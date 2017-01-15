@@ -25,9 +25,15 @@ h1{
     color: white;
 }
 
+button{
+    display: inline;
+    background: transparent;
+}
+
 i, p{
     color: white;
     font-size: 20px;
+    display: inline;
 }
 
 div{

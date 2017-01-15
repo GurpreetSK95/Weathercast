@@ -3,26 +3,49 @@
  */
 
 $(document).ready(function () {
-    $('.data')
-        .hide()  // Hide it initially
-        .ajaxStart(function () {
-            $(this).show();
-            $("#placeholder").html("Fetching latest results...");
-        });
+
+    var measure = "metric";
+    $("#fetching_data").hide();
+
+    $("#metric_or_imperial").on("click", function () {
+        if (measure === "metric") {
+            $("#metric_or_imperial").html("F");
+            measure = "imperial";
+            fetchJSON();
+        }
+        else {
+            $("#metric_or_imperial").html("C");
+            measure = "metric";
+            fetchJSON();
+        }
+    });
+
     if (navigator.geolocation) {
+        fetchJSON();
+    } else {
+        $("#test").html("Couldn't get lat long");
+    }
+
+    function fetchJSON() {
+        $("#fetching_data").show();
+        $("#data").hide();
         navigator.geolocation.getCurrentPosition(function (position) {
             var lat = position.coords.latitude;
             var lon = position.coords.longitude;
             // console.log(lat+" "+lon);
             $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat=" + lat +
-                "&lon=" + lon + "&appid=a1ff265d249cc69c1c87939a917d9aef&units=metric&callback=",
+                "&lon=" + lon + "&appid=a1ff265d249cc69c1c87939a917d9aef&units=" + measure + "&callback=",
                 function (json) {
                     var description = json.weather[0].description;
                     var temp = json.main.temp;
                     var humidity = json.main.humidity;
                     var clouds = json.clouds.all;
 
-                    $("#temp").html(temp);
+                    $("#temp").html(temp + "°");
+                    if (measure === "metric")
+                        $("#metric_or_imperial").html("C");
+                    else
+                        $("#metric_or_imperial").html("F");
                     $("#humidity").html(humidity);
                     $("#description").html(description);
                     var intensity = 1;
@@ -40,17 +63,11 @@ $(document).ready(function () {
                         intensity = 1;
                     }
                     $(".cloud_data").css({opacity: intensity});
-
-                    $(".data")
-                        .show()
-                        .ajaxStop(function () {
-                            $(this).hide();
-                            $("#placeholder").html(" ");
-                        });
+                    $("#fetching_data").hide();
+                    $("#data").show();
                 });
         });
-    } else {
-        $("#test").html("Couldn't get lat long");
     }
 
 });
+
