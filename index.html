@@ -15,7 +15,7 @@
 <div class="container">
     <div class="row">
         <header>
-            <h1 class="col-xs-12 text_center margin_top">&nbsp;Weather</h1>
+            <h1 class="col-xs-12 text_center margin_top">Weather</h1>
             <h1 class="col-xs-12 text_center">Assistant</h1>
             <h1 class="col-xs-12 text_center">
                 <i class="fa fa-sun-o"></i>
@@ -27,15 +27,14 @@
         <div>
             <p id="placeholder">&nbsp;</p>
         </div>
-        <div class="text_center" id="data">
-            <div id="fetching_data">Fetching latest data...</div>
+        <div class="text_center">
             <div class="text_center">
                 Temperature:
-                <div class="row"><p id="temp"></p>
+                <div class="row"><p class="large_size" id="temp">Fetching latest data...</p>
                     <button class="btn" id="metric_or_imperial"></button>
                 </div>
-                Humidity: <p id="humidity"></p>
-                &nbsp;Condition: <p id="description"></p>
+                <div id="data_humidity">Humidity: <p id="humidity"></p><br></div>
+                <div id="data_desc">Condition: <p id="description"></p></div>
             </div>
             <!--<div>-->
                 <!--<p>&nbsp;</p>-->

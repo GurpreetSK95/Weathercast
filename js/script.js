@@ -5,7 +5,7 @@
 $(document).ready(function () {
 
     var measure = "metric";
-    $("#fetching_data").hide();
+    $("#fetching_data").css({opacity: 0});
 
     $("#metric_or_imperial").on("click", function () {
         if (measure === "metric") {
@@ -27,8 +27,9 @@ $(document).ready(function () {
     }
 
     function fetchJSON() {
-        $("#fetching_data").show();
-        $("#data").hide();
+        // $("#fetching_data").css({opacity: 1});
+        $("#data_desc").hide();
+        $("#data_humidity").hide();
         navigator.geolocation.getCurrentPosition(function (position) {
             var lat = position.coords.latitude;
             var lon = position.coords.longitude;
@@ -49,9 +50,9 @@ $(document).ready(function () {
                     $("#humidity").html(humidity);
                     $("#description").html(description);
                     var intensity = 1;
-                    if (clouds <= 5) {
-                        intensity = 0;
-                    } else if (clouds > 5 && clouds < 20) {
+                    // if (clouds <= 5) {
+                    //     intensity = 0;
+                    if (clouds >= 0 && clouds < 20) {
                         intensity = 0.2;
                     } else if (clouds >= 20 && clouds < 40) {
                         intensity = 0.4;
@@ -63,8 +64,8 @@ $(document).ready(function () {
                         intensity = 1;
                     }
                     $(".cloud_data").css({opacity: intensity});
-                    $("#fetching_data").hide();
-                    $("#data").show();
+                    $("#data_humidity").show();
+                    $("#data_desc").show();
                 });
         });
     }

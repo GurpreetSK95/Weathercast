@@ -16,6 +16,10 @@
     text-align: center;
 }
 
+.large_size{
+    font-size: 40px;
+}
+
 body{
     background: black;
 }
