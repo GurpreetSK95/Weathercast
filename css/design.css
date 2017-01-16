@@ -21,7 +21,7 @@
 }
 
 body{
-    background: black;
+    background: #02e8ae;
 }
 
 h1{
@@ -41,5 +41,5 @@ i, p{
 }
 
 div{
-    color: darkgray;
+    color: white;
 }
